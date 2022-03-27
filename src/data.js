@@ -26,22 +26,26 @@ export const categories = [
   {
     id: 1,
     img: 'https://images.pexels.com/photos/2292953/pexels-photo-2292953.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    title: 'SHIRT STYLE!'
+    title: 'SHIRT STYLE!',
+    cat: 'women'
   },
   {
     id: 2,
     img: 'https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-    title: 'LOUNGEWEAR LOVE'
+    title: 'LOUNGEWEAR LOVE',
+    cat: 'men'
   },
   {
     id: 3,
     img: 'https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500',
-    title: 'LIGHT JACKETS'
+    title: 'LIGHT JACKETS',
+    cat: 'jeans'
   },
   {
     id: 4,
     img: 'https://images.pexels.com/photos/2129918/pexels-photo-2129918.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    title: 'MEDIUM JACKETS'
+    title: 'MEDIUM JACKETS',
+    cat: 'coat'
   }
 ];
 
