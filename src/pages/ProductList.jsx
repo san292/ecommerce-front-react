@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Announecement from '../components/Announecement';
@@ -6,6 +6,7 @@ import Products from '../components/Products';
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 import { mobile } from '../responsive';
+import { useLocation } from 'react-router-dom';
 
 const Container = styled.div``;
 const Title = styled.h1``;
@@ -51,6 +52,24 @@ const Price = styled.option`
 `;
 
 function ProductList(props) {
+  const [filters, setFilters] = useState({});
+  const [sort, setSort] = useState('newest');
+
+  const location = useLocation();
+  const cat = location.pathname.split('/')[2];
+  const handleFilters = (e) => {
+    const value = e.target.value;
+    setFilters({
+      ...filters,
+      [e.target.name]: value.toLowerCase()
+    });
+    console.log('filters----------->', filters);
+  };
+  const handleSort = (e) => {
+    setSort(e.target.value);
+    console.log('filters----------->', filters);
+  };
+
   return (
     <Container>
       <Navbar />
@@ -59,17 +78,17 @@ function ProductList(props) {
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products :</FilterText>
-          <Select>
-            <Option selected>color</Option>
-            <Option>White</Option>
-            <Option>Black</Option>
-            <Option>Red</Option>
-            <Option>Blue</Option>
-            <Option>Yellow</Option>
-            <Option>Green</Option>
+          <Select name="color" onChange={handleFilters}>
+            <Option disabled>color</Option>
+            <Option>white</Option>
+            <Option>black</Option>
+            <Option>red</Option>
+            <Option>blue</Option>
+            <Option>yellow</Option>
+            <Option>green</Option>
           </Select>
-          <Select>
-            <Option selected>Size</Option>
+          <Select name="size" onChange={handleFilters}>
+            <Option disabled>Size</Option>
             <Option>XS</Option>
             <Option>S</Option>
             <Option>M</Option>
@@ -79,14 +98,14 @@ function ProductList(props) {
         </Filter>
         <Filter>
           <FilterText>Sort Products :</FilterText>
-          <Select>
-            <Option selected>NEWEST</Option>
-            <Price>price (asc)</Price>
-            <Price>price (desc)</Price>
+          <Select onChange={handleSort}>
+            <Option value="newest">NEWEST</Option>
+            <Price value="asc">price (asc)</Price>
+            <Price value="desc">price (desc)</Price>
           </Select>
         </Filter>
       </FilterContainer>
-      <Products />
+      <Products cat={cat} sort={sort} filters={filters} />
       <Newsletter />
       <Footer />
     </Container>
