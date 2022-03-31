@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
@@ -23,8 +24,9 @@ const Container = styled.div`
   align-items: center;
   flex: 1;
   margin: 0.3rem;
-  height: 22rem;
+  height: 40rem;
   min-width: 17.5rem;
+  /* max-width: 40rem;s */
   background-color: #f5fbfd;
   position: relative;
   &:hover ${InfoContainer} {
@@ -40,7 +42,7 @@ const Circle = styled.div`
 `;
 const Image = styled.img`
   flex: 1;
-  height: 75%;
+  height: 80%;
   z-index: 2;
 `;
 
@@ -62,6 +64,7 @@ const Icon = styled.div`
 `;
 
 function Product({ productItem }) {
+  console.log('productItem', productItem);
   return (
     <Container>
       <Circle />
@@ -71,7 +74,9 @@ function Product({ productItem }) {
           <ShoppingCartIcon />
         </Icon>
         <Icon>
-          <SearchIcon />
+          <Link to={`/product/${productItem.id}`}>
+            <SearchIcon />
+          </Link>
         </Icon>
         <Icon>
           <FavoriteIcon />

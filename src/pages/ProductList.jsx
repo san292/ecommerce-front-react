@@ -9,7 +9,10 @@ import { mobile } from '../responsive';
 import { useLocation } from 'react-router-dom';
 
 const Container = styled.div``;
-const Title = styled.h1``;
+const Title = styled.h1`
+  margin: 1rem 2rem;
+  font-size: 3rem;
+`;
 const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -61,20 +64,18 @@ function ProductList(props) {
     const value = e.target.value;
     setFilters({
       ...filters,
-      [e.target.name]: value.toLowerCase()
+      [e.target.name]: value
     });
-    console.log('filters----------->', filters);
+    console.log('setfilters----------->', filters);
   };
   const handleSort = (e) => {
     setSort(e.target.value);
-    console.log('filters----------->', filters);
   };
-
   return (
     <Container>
       <Navbar />
       <Announecement />
-      <Title>DRESSES</Title>
+      <Title>{cat}</Title>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products :</FilterText>
@@ -88,7 +89,7 @@ function ProductList(props) {
             <Option>green</Option>
           </Select>
           <Select name="size" onChange={handleFilters}>
-            <Option disabled>Size</Option>
+            <Option>Size</Option>
             <Option>XS</Option>
             <Option>S</Option>
             <Option>M</Option>

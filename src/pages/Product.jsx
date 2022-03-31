@@ -1,11 +1,13 @@
 import { Add, Remove } from '@material-ui/icons';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Announecement from '../components/Announecement';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsletter';
 import { mobile } from '../responsive';
+import { publicRequest } from '../requestmethod';
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -123,13 +125,31 @@ const Button = styled.button`
 `;
 
 function Product(props) {
+  const location = useLocation();
+  const id = location.pathname.split('/')[2];
+  console.log('id------------------->', id);
+
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get('products/find/' + id);
+        console.log('resProduct', res.data);
+        setProduct(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProduct();
+  }, [id]);
   return (
     <Container>
       <Navbar />
       <Announecement />
       <Wrapper>
         <ImageContainer>
-          <Image src="https://images.pexels.com/photos/2129970/pexels-photo-2129970.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" />
+          <Image src={product.img} />
         </ImageContainer>
         <InfoContainer>
           <Title>Denim Jump Suit</Title>
