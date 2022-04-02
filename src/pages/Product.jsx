@@ -8,6 +8,7 @@ import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsletter';
 import { mobile } from '../responsive';
 import { publicRequest } from '../requestmethod';
+import axios from 'axios';
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -127,6 +128,7 @@ const Button = styled.button`
 function Product(props) {
   const location = useLocation();
   const id = location.pathname.split('/')[2];
+
   console.log('id------------------->', id);
 
   const [product, setProduct] = useState({});
@@ -134,8 +136,11 @@ function Product(props) {
   useEffect(() => {
     const getProduct = async () => {
       try {
-        const res = await publicRequest.get('products/find/' + id);
-        console.log('resProduct', res.data);
+        const res = await publicRequest.get(`/products/find/${id}`);
+        // const res = await axios.get(
+        //   `http://localhost:5000/api/products/find/${id}`
+        // );
+        console.log('res------------>product', res.data);
         setProduct(res.data);
       } catch (error) {
         console.log(error);
@@ -152,30 +157,24 @@ function Product(props) {
           <Image src={product.img} />
         </ImageContainer>
         <InfoContainer>
-          <Title>Denim Jump Suit</Title>
-          <Desc>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem nulla
-            at incidunt. Non, nam, illum eos ad est, numquam odio dolore
-            dignissimos fugiat blanditiis adipisci eum qui. Ab optio velit
-            expedita, voluptatibus adipisci quas fuga totam. Iste perferendis
-            dicta atque. Mollitia quasi praesentium quas nam quis consectetur
-          </Desc>
-          <Price>20£</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price> $ {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color="black" />
-              <FilterColor color="red" />
-              <FilterColor color="blue" />
+              {product.color
+                ? product.color.map((c) => <FilterColor color={c} key={c} />)
+                : 'product'}
             </Filter>
             <Filter>
               <FilterTitle>SIZE</FilterTitle>
               <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
+                {product.size
+                  ? product.size.map((s) => (
+                      <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                    ))
+                  : 'size'}
               </FilterSize>
             </Filter>
           </FilterContainer>
