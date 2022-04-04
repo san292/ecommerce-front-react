@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Announecement from '../components/Announecement';
 import Footer from '../components/Footer';
-import { Add, Height, Remove } from '@material-ui/icons';
+import { Add, Remove } from '@material-ui/icons';
 import { mobile } from '../responsive';
 
 const Container = styled.div``;

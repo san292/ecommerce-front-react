@@ -8,6 +8,9 @@ import Navbar from '../components/Navbar';
 import Newsletter from '../components/Newsletter';
 import { mobile } from '../responsive';
 import { publicRequest } from '../requestmethod';
+import { addProduct } from '../redux/cartRedux';
+
+import { useDispatch } from 'react-redux';
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -128,13 +131,12 @@ const Button = styled.button`
 function Product(props) {
   const location = useLocation();
   const id = location.pathname.split('/')[2];
-
   // console.log('id------------------->', id);
-
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState('');
   const [size, setSize] = useState('');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -161,6 +163,10 @@ function Product(props) {
     }
   };
   console.log('color size--------->', color, size);
+  const handleAddCART = () => {
+    dispatch(addProduct({ product, quantity }));
+  };
+
   return (
     <Container>
       <Navbar />
@@ -197,7 +203,7 @@ function Product(props) {
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity('inc')} />
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleAddCART}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>

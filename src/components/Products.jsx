@@ -10,7 +10,7 @@ const Container = styled.div`
 `;
 
 const Products = ({ cat, filters, sort }) => {
-  console.log('props----------------->', cat, filters, sort);
+  // console.log('props----------------->', cat, filters, sort);
   const [products, setProducts] = useState([]);
   const [filterProducts, setFilterProducts] = useState([]);
   // console.log('filterProducts------->15', filterProducts);

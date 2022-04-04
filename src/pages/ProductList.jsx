@@ -66,7 +66,7 @@ function ProductList(props) {
       ...filters,
       [e.target.name]: value
     });
-    console.log('setfilters----------->', filters);
+    // console.log('setfilters----------->', filters);
   };
   const handleSort = (e) => {
     setSort(e.target.value);
