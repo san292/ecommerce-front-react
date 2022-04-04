@@ -13,7 +13,7 @@ const Products = ({ cat, filters, sort }) => {
   console.log('props----------------->', cat, filters, sort);
   const [products, setProducts] = useState([]);
   const [filterProducts, setFilterProducts] = useState([]);
-  console.log('filterProducts------->15', filterProducts);
+  // console.log('filterProducts------->15', filterProducts);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -24,7 +24,7 @@ const Products = ({ cat, filters, sort }) => {
             : 'http://localhost:5000/api/products'
         );
         const res = response;
-        console.log('res------->', res.data);
+        // console.log('res------->', res.data);
         // console.log('res.categories------>>', res.categories);
         setProducts(res.data);
       } catch (error) {
