@@ -162,9 +162,9 @@ function Product(props) {
       return setQuantity(quantity - 1);
     }
   };
-  console.log('color size--------->', color, size);
+
   const handleAddCART = () => {
-    dispatch(addProduct({ product, quantity }));
+    dispatch(addProduct({ ...product, quantity, color, size }));
   };
 
   return (
