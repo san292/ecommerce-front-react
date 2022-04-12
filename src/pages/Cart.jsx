@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Announecement from '../components/Announecement';
@@ -6,6 +6,9 @@ import Footer from '../components/Footer';
 import { Add, Remove } from '@material-ui/icons';
 import { mobile } from '../responsive';
 import { useSelector } from 'react-redux';
+import StripeCheckout from 'react-stripe-checkout';
+
+const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div``;
 const Wrapper = styled.div`
@@ -158,8 +161,12 @@ const Button = styled.button`
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  console.log('cart--------------->', cart);
+  const [stripeToken, setStripeToken] = useState(null);
 
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+  console.log('stripeToken---------->', stripeToken);
   return (
     <Container>
       <Navbar />
@@ -229,7 +236,18 @@ const Cart = () => {
               <SummaryItemtext>Total</SummaryItemtext>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+            <StripeCheckout
+              name="Assia-Shop "
+              image="https://cdn.pixabay.com/photo/2019/09/22/08/15/woman-4495395__340.png"
+              billingAddress
+              shippingAddress
+              description={`your total is ${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <Button> CHECKOUT NOW</Button>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>
