@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Product from './pages/Product';
 import Register from './pages/Register';
 import ProductList from './pages/ProductList';
+import Success from './pages/Success';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/product/:id" element={<Product />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/cart/success" element={<Success />} />
         </Routes>
       </div>
     </Router>

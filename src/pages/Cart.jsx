@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Navbar from '../components/Navbar';
 import Announecement from '../components/Announecement';
@@ -7,6 +7,8 @@ import { Add, Remove } from '@material-ui/icons';
 import { mobile } from '../responsive';
 import { useSelector } from 'react-redux';
 import StripeCheckout from 'react-stripe-checkout';
+import { userRequest } from '../requestmethod';
+import { useNavigate } from 'react-router-dom';
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -49,6 +51,7 @@ const TopText = styled.span`
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
+
   ${mobile({
     flexDirection: 'column'
   })}
@@ -157,15 +160,34 @@ const Button = styled.button`
   color: white;
   padding: 0.6rem;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const [stripeToken, setStripeToken] = useState(null);
+  let navigate = useNavigate();
 
   const onToken = (token) => {
     setStripeToken(token);
+    console.log('tokeeeeeeeeeeeeeeeeeeeeeeeen', token);
   };
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest.post('/checkout/payment', {
+          tokenId: stripeToken.id,
+          amount: cart.total * 100
+        });
+        navigate('success', { data: res.data });
+        console.log('res------------->', res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    stripeToken && cart.total >= 1 && makeRequest();
+  }, [stripeToken, cart.total, navigate]);
   console.log('stripeToken---------->', stripeToken);
   return (
     <Container>
@@ -188,7 +210,6 @@ const Cart = () => {
               <Product key={product.id}>
                 <ProductDetail>
                   <Image src={product.img} />
-                  {/* <Image src="https://images.pexels.com/photos/267320/pexels-photo-267320.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" /> */}
                   <Details>
                     <ProductName>
                       <b>Product: </b>
