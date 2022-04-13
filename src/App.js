@@ -10,6 +10,7 @@ import ProductList from './pages/ProductList';
 import Success from './pages/Success';
 
 function App() {
+  const user = false;
   return (
     <Router>
       <div>

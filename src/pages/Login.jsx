@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { login } from '../redux/apiCalls';
 import { mobile } from '../responsive';
 // import { Link } from 'react-router-dom';
 
@@ -60,15 +62,40 @@ const Link = styled.a`
   font-size: 1rem;
   text-decoration: underline;
 `;
+
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+  const handleClick = (e) => {
+    e.preventDefault();
+    login(dispatch, { email, password });
+  };
+
   return (
     <Container>
       <Wrapper>
         <Title>SIGN IN </Title>
         <Form>
-          <Input placeholder=" username" />
-          <Input placeholder="password" />
-          <Button>LOGIN</Button>
+          <Input
+            name="email"
+            type="email"
+            placeholder={email}
+            onChange={handleEmail}
+          />
+          <Input
+            name="password"
+            placeholder={password}
+            onChange={handlePassword}
+          />
+          <Button onClick={handleClick}>LOGIN</Button>
           <Link>DO NOT REMUMBER THE PASSWORD</Link>
           <Link>CREATE A NEW ACCOUNT</Link>
         </Form>
