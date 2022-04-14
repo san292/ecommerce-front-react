@@ -8,9 +8,12 @@ import Product from './pages/Product';
 import Register from './pages/Register';
 import ProductList from './pages/ProductList';
 import Success from './pages/Success';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
 function App() {
-  const user = false;
+  const user = useSelector((state) => state.user.currentUser);
+  // const navigate = useNavigate();
   return (
     <Router>
       <div>
@@ -19,7 +22,10 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/products/:category" element={<ProductList />} />
           <Route path="/product/:id" element={<Product />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={user ? <Navigate to="/" replace /> : <Login />}
+          />
           <Route path="/register" element={<Register />} />
           <Route path="/cart/success" element={<Success />} />
         </Routes>

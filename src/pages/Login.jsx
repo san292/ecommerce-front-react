@@ -62,6 +62,9 @@ const Link = styled.a`
   font-size: 1rem;
   text-decoration: underline;
 `;
+const Error = styled.span`
+  color: red;
+`;
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -96,6 +99,7 @@ const Login = () => {
             onChange={handlePassword}
           />
           <Button onClick={handleClick}>LOGIN</Button>
+          {Error && <Error>Une erreur s'est produite</Error>}
           <Link>DO NOT REMUMBER THE PASSWORD</Link>
           <Link>CREATE A NEW ACCOUNT</Link>
         </Form>
