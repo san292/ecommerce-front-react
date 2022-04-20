@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Ecommerce-front-react est une application pour gérer des sitres e-commerce, où React montre vraiment toute sa splendeur, on naviguant d'une page à une autre en toute fluidité, l'utilisation de redux-toolkit est justifié par la complexité de la gestion du state entre composant lointain comme le panier par exemple
+
+![ecoomerce front1](https://user-images.githubusercontent.com/79156846/164290844-5194e36f-38a4-43a8-8f70-47f419da42ca.PNG)
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
