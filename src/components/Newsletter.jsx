@@ -3,6 +3,23 @@ import Send from '@material-ui/icons/Send';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 
+const Newsletter = () => {
+  return (
+    <Container>
+      <Title>Newsletter</Title>
+      <Desc>Get timely updates from your favorite product.</Desc>
+      <InputContainer>
+        <Input placeholder="Your email" />
+        <Button>
+          <Send />
+        </Button>
+      </InputContainer>
+    </Container>
+  );
+};
+
+export default Newsletter;
+
 const Container = styled.div`
   height: 60vh;
   background-color: #fcf5f5;
@@ -54,20 +71,3 @@ const Input = styled.input`
   border: none;
   margin-left: 1.2rem;
 `;
-
-function Newsletter(props) {
-  return (
-    <Container>
-      <Title>Newsletter</Title>
-      <Desc>Get timely updates from your favorite product.</Desc>
-      <InputContainer>
-        <Input placeholder="Your email" />
-        <Button>
-          <Send />
-        </Button>
-      </InputContainer>
-    </Container>
-  );
-}
-
-export default Newsletter;

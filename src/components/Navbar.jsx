@@ -6,6 +6,42 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { mobile } from '../responsive';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+
+const Navbar = () => {
+  const quantity = useSelector((state) => state.cart.quantity);
+  console.log('cart-------------->', quantity);
+  return (
+    <Container>
+      <Wrapper>
+        <Left>
+          <Language>EN</Language>
+          <SearchContainer>
+            <Input placeholder="Search" />
+            <SearchIcon style={{ color: 'gray', fontSize: 16 }} />
+          </SearchContainer>
+        </Left>
+
+        <Center>
+          <Logo>Assia Shop</Logo>
+        </Center>
+        <Right>
+          <MenuItem>REGISTER</MenuItem>
+          <MenuItem>SIGNIN</MenuItem>
+          <Link to="/cart">
+            <MenuItem>
+              <Badge badgeContent={quantity} color="secondary">
+                <ShoppingCartIcon />
+              </Badge>
+            </MenuItem>
+          </Link>
+        </Right>
+      </Wrapper>
+    </Container>
+  );
+};
+
+export default Navbar;
+
 const Container = styled.div`
   height: 5rem;
   ${mobile({
@@ -82,38 +118,3 @@ const MenuItem = styled.div`
     marginLeft: '0.8rem'
   })}
 `;
-
-function Navbar() {
-  const quantity = useSelector((state) => state.cart.quantity);
-  console.log('cart-------------->', quantity);
-  return (
-    <Container>
-      <Wrapper>
-        <Left>
-          <Language>EN</Language>
-          <SearchContainer>
-            <Input placeholder="Search" />
-            <SearchIcon style={{ color: 'gray', fontSize: 16 }} />
-          </SearchContainer>
-        </Left>
-
-        <Center>
-          <Logo>Assia Shop</Logo>
-        </Center>
-        <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGNIN</MenuItem>
-          <Link to="/cart">
-            <MenuItem>
-              <Badge badgeContent={quantity} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
-            </MenuItem>
-          </Link>
-        </Right>
-      </Wrapper>
-    </Container>
-  );
-}
-
-export default Navbar;

@@ -8,53 +8,7 @@ import Footer from '../components/Footer';
 import { mobile } from '../responsive';
 import { useLocation } from 'react-router-dom';
 
-const Container = styled.div``;
-const Title = styled.h1`
-  margin: 1rem 2rem;
-  font-size: 3rem;
-`;
-const FilterContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-const Filter = styled.div`
-  margin: 1.3rem;
-  ${mobile({
-    margin: ' 0rem 1.3rem',
-    display: 'flex',
-    flexDirection: 'column'
-  })}
-`;
-const FilterText = styled.span`
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-right: 1rem;
-  ${mobile({
-    fontSize: '0.8rem',
-    marginRight: '0rem'
-  })}
-`;
-const Select = styled.select`
-  margin-right: 1rem;
-  padding: 0.6rem;
-  ${mobile({
-    marginRight: '0rem'
-  })}
-`;
-const Option = styled.option`
-  font-size: 1.2rem;
-  ${mobile({
-    fontSize: '0.5rem'
-  })}
-`;
-const Price = styled.option`
-  font-size: 1.2rem;
-  ${mobile({
-    fontSize: '0.5rem'
-  })}
-`;
-
-function ProductList(props) {
+const ProductList = () => {
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState('newest');
 
@@ -111,6 +65,52 @@ function ProductList(props) {
       <Footer />
     </Container>
   );
-}
+};
 
 export default ProductList;
+
+const Container = styled.div``;
+const Title = styled.h1`
+  margin: 1rem 2rem;
+  font-size: 3rem;
+`;
+const FilterContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const Filter = styled.div`
+  margin: 1.3rem;
+  ${mobile({
+    margin: ' 0rem 1.3rem',
+    display: 'flex',
+    flexDirection: 'column'
+  })}
+`;
+const FilterText = styled.span`
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-right: 1rem;
+  ${mobile({
+    fontSize: '0.8rem',
+    marginRight: '0rem'
+  })}
+`;
+const Select = styled.select`
+  margin-right: 1rem;
+  padding: 0.6rem;
+  ${mobile({
+    marginRight: '0rem'
+  })}
+`;
+const Option = styled.option`
+  font-size: 1.2rem;
+  ${mobile({
+    fontSize: '0.5rem'
+  })}
+`;
+const Price = styled.option`
+  font-size: 1.2rem;
+  ${mobile({
+    fontSize: '0.5rem'
+  })}
+`;

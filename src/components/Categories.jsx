@@ -3,6 +3,19 @@ import styled from 'styled-components';
 import { categories } from '../data';
 import Category from './Category';
 import { mobile } from '../responsive';
+
+const Categories = () => {
+  return (
+    <Container>
+      {categories.map((item) => (
+        <Category key={item.id} item={item} />
+      ))}
+    </Container>
+  );
+};
+
+export default Categories;
+
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -12,14 +25,3 @@ const Container = styled.div`
     padding: '0rem'
   })}
 `;
-function Categories() {
-  return (
-    <Container>
-      {categories.map((item) => (
-        <Category key={item.id} item={item} />
-      ))}
-    </Container>
-  );
-}
-
-export default Categories;

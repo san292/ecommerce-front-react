@@ -2,12 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 import axios from 'axios';
-const Container = styled.div`
-  padding: 1.3rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
 
 const Products = ({ cat, filters, sort }) => {
   // console.log('props----------------->', cat, filters, sort);
@@ -71,3 +65,10 @@ const Products = ({ cat, filters, sort }) => {
 };
 
 export default Products;
+
+const Container = styled.div`
+  padding: 1.3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;

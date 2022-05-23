@@ -2,6 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { mobile } from '../responsive';
 
+const Announecement = () => {
+  return <Container>Super Deal! Free Shipping on Orders Over $50</Container>;
+};
+
+export default Announecement;
+
 const Container = styled.div`
   height: 3rem;
   background-color: #d9ab9a;
@@ -15,9 +21,3 @@ const Container = styled.div`
     fontSize: '1rem'
   })}
 `;
-
-function Announecement() {
-  return <Container>Super Deal! Free Shipping on Orders Over $50</Container>;
-}
-
-export default Announecement;

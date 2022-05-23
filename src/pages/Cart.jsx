@@ -12,6 +12,122 @@ import { useNavigate } from 'react-router-dom';
 
 const KEY = process.env.REACT_APP_STRIPE;
 
+const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+  const [stripeToken, setStripeToken] = useState(null);
+  let navigate = useNavigate();
+
+  const onToken = (token) => {
+    setStripeToken(token);
+    console.log('tokeeeeeeeeeeeeeeeeeeeeeeeen', token);
+  };
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest.post('/checkout/payment', {
+          tokenId: stripeToken.id,
+          amount: cart.total * 100
+        });
+        navigate('success', { data: res.data });
+        console.log('res------------->', res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    stripeToken && cart.total >= 1 && makeRequest();
+  }, [stripeToken, cart.total, navigate]);
+  console.log('stripeToken---------->', stripeToken);
+  return (
+    <Container>
+      <Navbar />
+      <Announecement />
+      <Wrapper>
+        <Title>YOU BAG</Title>
+        <Top>
+          <TopButton>CONTINUE SHOOPING</TopButton>
+          <TopTextS>
+            <TopText>Shooping Bag(2)</TopText>
+            <TopText>Your Wishlist</TopText>
+          </TopTextS>
+          <TopButton type="filled">CHECKOUT NOW</TopButton>
+        </Top>
+
+        <Bottom>
+          <Info>
+            {cart.products.map((product) => (
+              <Product key={product.id}>
+                <ProductDetail>
+                  <Image src={product.img} />
+                  <Details>
+                    <ProductName>
+                      <b>Product: </b>
+                      {product.title}
+                    </ProductName>
+                    <ProductId>
+                      <b>Id: </b> {product._id}
+                    </ProductId>
+                    <ProductColor color={product.color} />
+                    <ProductSize>
+                      <b>size: </b>
+                      {product.size}
+                    </ProductSize>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer>
+                    <Add />
+                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <Remove />
+                  </ProductAmountContainer>
+                  <Productprice>
+                    $ {product.price * product.quantity}
+                  </Productprice>
+                </PriceDetail>
+              </Product>
+            ))}
+            <Hr />
+          </Info>
+          <Summary>
+            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+            <SummaryItem>
+              <SummaryItemtext>Subtotal</SummaryItemtext>
+              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem>
+              <SummaryItemtext>Estimated Shipping</SummaryItemtext>
+              <SummaryItemPrice>$ 3.90</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem>
+              <SummaryItemtext>Shipping Discount</SummaryItemtext>
+              <SummaryItemPrice>$ -3.90</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem type="total">
+              <SummaryItemtext>Total</SummaryItemtext>
+              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+            </SummaryItem>
+            <StripeCheckout
+              name="Assia-Shop "
+              image="https://cdn.pixabay.com/photo/2019/09/22/08/15/woman-4495395__340.png"
+              billingAddress
+              shippingAddress
+              description={`your total is ${cart.total}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <Button> CHECKOUT NOW</Button>
+            </StripeCheckout>
+          </Summary>
+        </Bottom>
+      </Wrapper>
+      <Footer />
+    </Container>
+  );
+};
+
+export default Cart;
+
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 1.2rem;
@@ -162,119 +278,3 @@ const Button = styled.button`
   font-weight: 600;
   cursor: pointer;
 `;
-
-const Cart = () => {
-  const cart = useSelector((state) => state.cart);
-  const [stripeToken, setStripeToken] = useState(null);
-  let navigate = useNavigate();
-
-  const onToken = (token) => {
-    setStripeToken(token);
-    console.log('tokeeeeeeeeeeeeeeeeeeeeeeeen', token);
-  };
-
-  useEffect(() => {
-    const makeRequest = async () => {
-      try {
-        const res = await userRequest.post('/checkout/payment', {
-          tokenId: stripeToken.id,
-          amount: cart.total * 100
-        });
-        navigate('success', { data: res.data });
-        console.log('res------------->', res);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    stripeToken && cart.total >= 1 && makeRequest();
-  }, [stripeToken, cart.total, navigate]);
-  console.log('stripeToken---------->', stripeToken);
-  return (
-    <Container>
-      <Navbar />
-      <Announecement />
-      <Wrapper>
-        <Title>YOU BAG</Title>
-        <Top>
-          <TopButton>CONTINUE SHOOPING</TopButton>
-          <TopTextS>
-            <TopText>Shooping Bag(2)</TopText>
-            <TopText>Your Wishlist</TopText>
-          </TopTextS>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
-        </Top>
-
-        <Bottom>
-          <Info>
-            {cart.products.map((product) => (
-              <Product key={product.id}>
-                <ProductDetail>
-                  <Image src={product.img} />
-                  <Details>
-                    <ProductName>
-                      <b>Product: </b>
-                      {product.title}
-                    </ProductName>
-                    <ProductId>
-                      <b>Id: </b> {product._id}
-                    </ProductId>
-                    <ProductColor color={product.color} />
-                    <ProductSize>
-                      <b>size: </b>
-                      {product.size}
-                    </ProductSize>
-                  </Details>
-                </ProductDetail>
-                <PriceDetail>
-                  <ProductAmountContainer>
-                    <Add />
-                    <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove />
-                  </ProductAmountContainer>
-                  <Productprice>
-                    $ {product.price * product.quantity}
-                  </Productprice>
-                </PriceDetail>
-              </Product>
-            ))}
-            <Hr />
-          </Info>
-          <Summary>
-            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-            <SummaryItem>
-              <SummaryItemtext>Subtotal</SummaryItemtext>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemtext>Estimated Shipping</SummaryItemtext>
-              <SummaryItemPrice>$ 3.90</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemtext>Shipping Discount</SummaryItemtext>
-              <SummaryItemPrice>$ -3.90</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem type="total">
-              <SummaryItemtext>Total</SummaryItemtext>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
-            </SummaryItem>
-            <StripeCheckout
-              name="Assia-Shop "
-              image="https://cdn.pixabay.com/photo/2019/09/22/08/15/woman-4495395__340.png"
-              billingAddress
-              shippingAddress
-              description={`your total is ${cart.total}`}
-              amount={cart.total * 100}
-              token={onToken}
-              stripeKey={KEY}
-            >
-              <Button> CHECKOUT NOW</Button>
-            </StripeCheckout>
-          </Summary>
-        </Bottom>
-      </Wrapper>
-      <Footer />
-    </Container>
-  );
-};
-
-export default Cart;

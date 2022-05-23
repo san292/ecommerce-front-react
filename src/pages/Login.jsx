@@ -5,6 +5,50 @@ import { login } from '../redux/apiCalls';
 import { mobile } from '../responsive';
 // import { Link } from 'react-router-dom';
 
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  };
+  const handleClick = (e) => {
+    e.preventDefault();
+    login(dispatch, { email, password });
+  };
+
+  return (
+    <Container>
+      <Wrapper>
+        <Title>SIGN IN </Title>
+        <Form>
+          <Input
+            name="email"
+            type="email"
+            placeholder={email}
+            onChange={handleEmail}
+          />
+          <Input
+            name="password"
+            placeholder={password}
+            onChange={handlePassword}
+          />
+          <Button onClick={handleClick}>LOGIN</Button>
+          {Error && <Error>Une erreur s'est produite</Error>}
+          <Link>DO NOT REMUMBER THE PASSWORD</Link>
+          <Link>CREATE A NEW ACCOUNT</Link>
+        </Form>
+      </Wrapper>
+    </Container>
+  );
+};
+
+export default Login;
+
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
@@ -65,47 +109,3 @@ const Link = styled.a`
 const Error = styled.span`
   color: red;
 `;
-
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
-
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const handleClick = (e) => {
-    e.preventDefault();
-    login(dispatch, { email, password });
-  };
-
-  return (
-    <Container>
-      <Wrapper>
-        <Title>SIGN IN </Title>
-        <Form>
-          <Input
-            name="email"
-            type="email"
-            placeholder={email}
-            onChange={handleEmail}
-          />
-          <Input
-            name="password"
-            placeholder={password}
-            onChange={handlePassword}
-          />
-          <Button onClick={handleClick}>LOGIN</Button>
-          {Error && <Error>Une erreur s'est produite</Error>}
-          <Link>DO NOT REMUMBER THE PASSWORD</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
-        </Form>
-      </Wrapper>
-    </Container>
-  );
-};
-
-export default Login;

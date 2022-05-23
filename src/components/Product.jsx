@@ -4,6 +4,31 @@ import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+
+const Product = ({ productItem }) => {
+  return (
+    <Container>
+      <Circle />
+      <Image src={productItem.img} />
+      <InfoContainer>
+        <Icon>
+          <ShoppingCartIcon />
+        </Icon>
+        <Icon>
+          <Link to={`/product/${productItem._id}`}>
+            <SearchIcon />
+          </Link>
+        </Icon>
+        <Icon>
+          <FavoriteIcon />
+        </Icon>
+      </InfoContainer>
+    </Container>
+  );
+};
+
+export default Product;
+
 const InfoContainer = styled.div`
   opacity: 0;
   width: 100%;
@@ -62,28 +87,3 @@ const Icon = styled.div`
     transform: scale(1, 1);
   }
 `;
-
-function Product({ productItem }) {
-  // console.log('productItem', productItem);
-  return (
-    <Container>
-      <Circle />
-      <Image src={productItem.img} />
-      <InfoContainer>
-        <Icon>
-          <ShoppingCartIcon />
-        </Icon>
-        <Icon>
-          <Link to={`/product/${productItem._id}`}>
-            <SearchIcon />
-          </Link>
-        </Icon>
-        <Icon>
-          <FavoriteIcon />
-        </Icon>
-      </InfoContainer>
-    </Container>
-  );
-}
-
-export default Product;

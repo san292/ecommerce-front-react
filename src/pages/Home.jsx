@@ -8,10 +8,7 @@ import Newsletter from '../components/Newsletter';
 import Products from '../components/Products';
 import Slider from '../components/Slider';
 
-function Home(props) {
-  const Container = styled.div`
-    /* max-width: 200rem; */
-  `;
+const Home = () => {
   return (
     <Container>
       <Announecement />
@@ -23,6 +20,10 @@ function Home(props) {
       <Footer />
     </Container>
   );
-}
+};
 
 export default Home;
+
+const Container = styled.div`
+  /* max-width: 200rem; */
+`;

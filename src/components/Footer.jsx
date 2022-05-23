@@ -10,6 +10,66 @@ import {
 } from '@material-ui/icons';
 import { mobile } from '../responsive';
 
+const Footer = () => {
+  return (
+    <Container>
+      <Left>
+        <Logo>Assia shop</Logo>
+        <Desc>
+          {' '}
+          There are many variations of passages of Lorem Ipsum available, but
+          the majority have suffered alteration in some form, by injected
+          humour, or randomised words which don’t look even slightly believable.
+        </Desc>
+        <SocialContainer>
+          <SocialIcon color="#3B5999">
+            <Facebook />
+          </SocialIcon>
+          <SocialIcon color="#55ACEE">
+            <Twitter />
+          </SocialIcon>
+          <SocialIcon color="#E4405F">
+            <Instagram />
+          </SocialIcon>
+        </SocialContainer>
+      </Left>
+      <Center>
+        <Title>Useful Links</Title>
+        <List>
+          <ListItem>Home</ListItem>
+          <ListItem>Cart</ListItem>
+          <ListItem>Man Fashion</ListItem>
+          <ListItem>Woman Fashion</ListItem>
+          <ListItem>Accessories</ListItem>
+          <ListItem>My Account</ListItem>
+          <ListItem>Order Tracking</ListItem>
+          <ListItem>Wishlist</ListItem>
+          <ListItem>Wishlist</ListItem>
+          <ListItem>Terms</ListItem>
+        </List>
+      </Center>
+      <Right>
+        <Title>Contact</Title>
+        <ContactItem>
+          <Room />
+          <ContactItemSpan>rue 10 n° 11 Lala Meriem Casablanca</ContactItemSpan>
+        </ContactItem>
+        <ContactItem>
+          <Phone />
+          <ContactItemSpan>+212 612345678</ContactItemSpan>
+        </ContactItem>
+        <ContactItem>
+          <AlternateEmail />
+          <ContactItemSpan> assia@gmail.com</ContactItemSpan>
+        </ContactItem>
+        <Payment src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC6D8fxHU5RmsTBIVNjuW5OlLUUAAVrrzI9w&usqp=CAU" />
+      </Right>
+    </Container>
+  );
+};
+
+export default Footer;
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -82,63 +142,3 @@ const ContactItemSpan = styled.span`
 const Payment = styled.img`
   width: 50%;
 `;
-
-function Footer(props) {
-  return (
-    <Container>
-      <Left>
-        <Logo>Assia shop</Logo>
-        <Desc>
-          {' '}
-          There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration in some form, by injected
-          humour, or randomised words which don’t look even slightly believable.
-        </Desc>
-        <SocialContainer>
-          <SocialIcon color="#3B5999">
-            <Facebook />
-          </SocialIcon>
-          <SocialIcon color="#55ACEE">
-            <Twitter />
-          </SocialIcon>
-          <SocialIcon color="#E4405F">
-            <Instagram />
-          </SocialIcon>
-        </SocialContainer>
-      </Left>
-      <Center>
-        <Title>Useful Links</Title>
-        <List>
-          <ListItem>Home</ListItem>
-          <ListItem>Cart</ListItem>
-          <ListItem>Man Fashion</ListItem>
-          <ListItem>Woman Fashion</ListItem>
-          <ListItem>Accessories</ListItem>
-          <ListItem>My Account</ListItem>
-          <ListItem>Order Tracking</ListItem>
-          <ListItem>Wishlist</ListItem>
-          <ListItem>Wishlist</ListItem>
-          <ListItem>Terms</ListItem>
-        </List>
-      </Center>
-      <Right>
-        <Title>Contact</Title>
-        <ContactItem>
-          <Room />
-          <ContactItemSpan>rue 10 n° 11 Lala Meriem Casablanca</ContactItemSpan>
-        </ContactItem>
-        <ContactItem>
-          <Phone />
-          <ContactItemSpan>+212 612345678</ContactItemSpan>
-        </ContactItem>
-        <ContactItem>
-          <AlternateEmail />
-          <ContactItemSpan> assia@gmail.com</ContactItemSpan>
-        </ContactItem>
-        <Payment src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC6D8fxHU5RmsTBIVNjuW5OlLUUAAVrrzI9w&usqp=CAU" />
-      </Right>
-    </Container>
-  );
-}
-
-export default Footer;

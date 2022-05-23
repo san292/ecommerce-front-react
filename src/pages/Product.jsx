@@ -12,6 +12,94 @@ import { addProduct } from '../redux/cartRedux';
 
 import { useDispatch } from 'react-redux';
 
+const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split('/')[2];
+  // console.log('id------------------->', id);
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState('');
+  const [size, setSize] = useState('');
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get(`/products/find/${id}`);
+        // const res = await axios.get(
+        //   `http://localhost:5000/api/products/find/${id}`
+        // );
+        // console.log('res------------>product', res.data);
+        setProduct(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProduct();
+  }, [id]);
+
+  const handleQuantity = (type) => {
+    if (type === 'inc') {
+      return setQuantity(quantity + 1);
+    }
+    if (quantity > 0 && type === 'desc') {
+      return setQuantity(quantity - 1);
+    }
+  };
+
+  const handleAddCART = () => {
+    dispatch(addProduct({ ...product, quantity, color, size }));
+  };
+
+  return (
+    <Container>
+      <Navbar />
+      <Announecement />
+      <Wrapper>
+        <ImageContainer>
+          <Image src={product.img} />
+        </ImageContainer>
+        <InfoContainer>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price> $ {product.price}</Price>
+          <FilterContainer>
+            <Filter>
+              <FilterTitle>Color</FilterTitle>
+              {product.color &&
+                product.color.map((c) => (
+                  <FilterColor color={c} key={c} onClick={(e) => setColor(c)} />
+                ))}
+            </Filter>
+            <Filter>
+              <FilterTitle>SIZE</FilterTitle>
+              <FilterSize onChange={(e) => setSize(e.target.value)}>
+                {product.size &&
+                  product.size.map((s) => (
+                    <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                  ))}
+              </FilterSize>
+            </Filter>
+          </FilterContainer>
+          <AddContainer>
+            <AmountContainer>
+              <Remove onClick={() => handleQuantity('desc')} />
+              <Amount>{quantity}</Amount>
+              <Add onClick={() => handleQuantity('inc')} />
+            </AmountContainer>
+            <Button onClick={handleAddCART}>ADD TO CART</Button>
+          </AddContainer>
+        </InfoContainer>
+      </Wrapper>
+
+      <Newsletter />
+      <Footer />
+    </Container>
+  );
+};
+
+export default Product;
+
 const Container = styled.div``;
 const Wrapper = styled.div`
   padding: 3rem;
@@ -127,91 +215,3 @@ const Button = styled.button`
     color: white;
   }
 `;
-
-function Product(props) {
-  const location = useLocation();
-  const id = location.pathname.split('/')[2];
-  // console.log('id------------------->', id);
-  const [product, setProduct] = useState({});
-  const [quantity, setQuantity] = useState(1);
-  const [color, setColor] = useState('');
-  const [size, setSize] = useState('');
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await publicRequest.get(`/products/find/${id}`);
-        // const res = await axios.get(
-        //   `http://localhost:5000/api/products/find/${id}`
-        // );
-        // console.log('res------------>product', res.data);
-        setProduct(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getProduct();
-  }, [id]);
-
-  const handleQuantity = (type) => {
-    if (type === 'inc') {
-      return setQuantity(quantity + 1);
-    }
-    if (quantity > 0 && type === 'desc') {
-      return setQuantity(quantity - 1);
-    }
-  };
-
-  const handleAddCART = () => {
-    dispatch(addProduct({ ...product, quantity, color, size }));
-  };
-
-  return (
-    <Container>
-      <Navbar />
-      <Announecement />
-      <Wrapper>
-        <ImageContainer>
-          <Image src={product.img} />
-        </ImageContainer>
-        <InfoContainer>
-          <Title>{product.title}</Title>
-          <Desc>{product.desc}</Desc>
-          <Price> $ {product.price}</Price>
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>Color</FilterTitle>
-              {product.color &&
-                product.color.map((c) => (
-                  <FilterColor color={c} key={c} onClick={(e) => setColor(c)} />
-                ))}
-            </Filter>
-            <Filter>
-              <FilterTitle>SIZE</FilterTitle>
-              <FilterSize onChange={(e) => setSize(e.target.value)}>
-                {product.size &&
-                  product.size.map((s) => (
-                    <FilterSizeOption key={s}>{s}</FilterSizeOption>
-                  ))}
-              </FilterSize>
-            </Filter>
-          </FilterContainer>
-          <AddContainer>
-            <AmountContainer>
-              <Remove onClick={() => handleQuantity('desc')} />
-              <Amount>{quantity}</Amount>
-              <Add onClick={() => handleQuantity('inc')} />
-            </AmountContainer>
-            <Button onClick={handleAddCART}>ADD TO CART</Button>
-          </AddContainer>
-        </InfoContainer>
-      </Wrapper>
-
-      <Newsletter />
-      <Footer />
-    </Container>
-  );
-}
-
-export default Product;
